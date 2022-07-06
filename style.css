@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+    /* https://tailwindcss.com/docs/customizing-colors */
+    --indigo: #6366f1; /*indigo 500*/
+    --light-indigo: #a5b4fc; /*indigo 300*/
+    --lime: #a3e635; /*lime 400*/
+    --red: #ef4444; /*red 500*/
+
+    --background-grey: #e5e7eb; /*grey 200*/
+    --text-grey: #374151; /*grey 700*/
+    --shadow: rgba(156, 163, 175, 0.8); /* dark grey 400*/
+    --accent-blue: #3b82f6; /*blue 500*/
+    --accent-pink: #FF10F0; /*neon pink*/
+}
+
+* {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* display: grid;
+    grid-template-rows: 1fr 7fr 20px; */
+}
+
+header {
+    /* grid-row: 1 / 2; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: var(--indigo);
+    padding: 1rem 20vw;
+    height: 5rem;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 2rem;
+    justify-self: flex-start;
+}
+
+#add-book-button {
+    border: none;
+    appearance: none;
+    outline: none;
+    /* background: none; */
+    cursor: pointer;
+
+    color: white;
+    font-weight: bold;    
+    background-color: var(--indigo);
+    /* padding: 0.5rem 2rem; */
+    /* border-radius: 3rem; */
+}
+
+.library {
+    /* grid-row: 2 / 3; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    background-color: var(--light-indigo);
+    padding: 1rem 20vw;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+.book-title {
+    color: white;
+    background-color: var(--indigo);
+}
+
+.book p {
+    background-color: white;
+}
+
+.book button {
+    border: none;
+    appearance: none;
+    outline: none;
+    /* background: none; */
+    cursor: pointer;
+
+    color: white;
+
+}
+
+.read-button {
+    background-color: var(--lime);
+}
+
+.delete-button {
+    background-color: var(--red);
+}
+
+footer {
+    /* grid-row: 3 / 4; */
+    
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    background-color: var(--light-indigo);
+}
