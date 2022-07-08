@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Bookshelf</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="bookmark-box-multiple-black.png">
+    <script src="script.js" defer></script>
 </head>
 <body>
     
@@ -13,7 +15,7 @@
         <div class="header-container">
             <img src="bookmark-box-multiple.png" alt="logo">
             <h1>The Bookshelf</h1>
-            <button id="add-book-button">+ Add new book</button>
+            <button type="button" id="add-book-button">+ Add new book</button>
         </div>
     </header>
 
@@ -68,15 +70,25 @@
         </div>
     </div>
 
-    <div class="overlay"></div>
-
-    <section id="popup"></section>
-
     <footer>
         Copryright 2022 martijnwesselius
     </footer>
 
-    <script src="script.js"></script>
+    <div id="overlay"></div>
+
+    <div id="add-book-modal">
+        <form action="" id="add-book-form">
+            <h2>Add new book</h2>
+            <input type="text" id="title" placeholder="Title" maxlength="100" required>
+            <input type="text" id="author" placeholder="Author" maxlength="100" required>
+            <input type="number" id="pages" placeholder="Number of pages" min="0" required>
+            <div class="is-read-container">
+                <label for="is-read">Have you read it?</label>
+                <input type="checkbox" id="is-read" class="checkbox">
+            </div>
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
+    </div>
 
 </body>
 </html>

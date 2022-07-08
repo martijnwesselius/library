@@ -24,7 +24,7 @@ Library.prototype.getBook = function(title) {
     return this.books.find((book) => book.title === title);
 }
 
-function Book(title, author, pages = undefined, isRead = false) {
+function Book(title, author, pages = undefined, read = false) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -50,6 +50,29 @@ console.log(myLibrary.books);
 
 
 // USER INTERFACE
+
+const addBookButton = document.querySelector("#add-book-button");
+const overlay = document.querySelector("#overlay");
+const addBookModal = document.querySelector("#add-book-modal");
+const readButton = document.querySelector(".read-button");
+const deleteButton = document.querySelector(".delete-button");
+
+
+
+function openModal() {
+    overlay.classList.add('active')
+    addBookModal.classList.add('active')
+}
+
+function closeModal() {
+    overlay.classList.remove('active')
+    addBookModal.classList.remove('active')
+}
+
+addBookButton.addEventListener("click", () => openModal());
+overlay.addEventListener("click", () => closeModal());
+// addBookForm.addEventListener("submit", addBook);
+
 
 
 // LOCAL STORAGE
