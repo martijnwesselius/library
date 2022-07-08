@@ -3,15 +3,13 @@
 :root {
     /* https://tailwindcss.com/docs/customizing-colors */
     --indigo: #6366f1; /*indigo 500*/
-    --light-indigo: #a5b4fc; /*indigo 300*/
-    --lime: #a3e635; /*lime 400*/
+    --light-indigo: #c7d2fe; /*indigo 200*/
+    --lime: #fbbf24; /*amber 400*/
     --red: #ef4444; /*red 500*/
 
     --background-grey: #e5e7eb; /*grey 200*/
     --text-grey: #374151; /*grey 700*/
     --shadow: rgba(156, 163, 175, 0.8); /* dark grey 400*/
-    --accent-blue: #3b82f6; /*blue 500*/
-    --accent-pink: #FF10F0; /*neon pink*/
 }
 
 * {
@@ -25,15 +23,10 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* display: grid;
-    grid-template-rows: 1fr 7fr 20px; */
 }
 
 header {
-    /* grid-row: 1 / 2; */
-
     display: flex;
-    justify-content: center;
     align-items: center;
     color: white;
     background-color: var(--indigo);
@@ -42,8 +35,10 @@ header {
 }
 
 .header-container {
+    flex: content;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 h1 {
@@ -55,23 +50,19 @@ h1 {
     border: none;
     appearance: none;
     outline: none;
-    /* background: none; */
     cursor: pointer;
-
+    margin-left: auto;
     color: white;
+    font-size: 1.3rem;
     font-weight: bold;    
     background-color: var(--indigo);
-    /* padding: 0.5rem 2rem; */
-    /* border-radius: 3rem; */
 }
 
 .library {
-    /* grid-row: 2 / 3; */
-
     flex: auto;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: min-content;
     gap: 1rem;
     overflow: auto;
@@ -87,13 +78,16 @@ h1 {
 
 .book-title {
     color: white;
+    font-weight: bold;
     background-color: var(--indigo);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
+    padding: 0.5rem;
 }
 
 .book p {
     background-color: white;
+    padding: 0.5rem;
 }
 
 .book button {
@@ -104,6 +98,7 @@ h1 {
     cursor: pointer;
 
     color: white;
+    padding: 0.5rem;
 
 }
 
@@ -123,4 +118,11 @@ footer {
     text-align: center;
     color: white;
     background-color: var(--indigo);
+}
+
+@media only screen and (max-width: 850px) {
+    header,
+    .library {
+        padding: 1rem 2rem;
+    } 
 }
