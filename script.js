@@ -11,9 +11,7 @@ Library.prototype.addBook = function(newBook) {
 }
 
 Library.prototype.removeBook = function(title) {
-    if (this.isInLibrary(title)) {
-        this.books.filter((book) => book.title !== title);
-    }
+    this.books = this.books.filter((book) => book.title !== title);
 }
 
 Library.prototype.isInLibrary = function(title) {
@@ -39,6 +37,7 @@ const elonMusk = new Book("Elon Musk", "Ashlee Vance", 448, true);
 const randomWalk = new Book("A random walk down Wall Street", "Burton Malkiel", 480, true);
 
 const myLibrary = new Library();
+
 myLibrary.addBook(theHobbit);
 myLibrary.addBook(shoeDog);
 myLibrary.addBook(sapiens);
@@ -58,8 +57,6 @@ const addBookButton = document.querySelector("#add-book-button");
 const overlay = document.querySelector("#overlay");
 const addBookModal = document.querySelector("#add-book-modal");
 const submitButton = document.querySelector("#submit-button");
-const readButton = document.querySelector(".read-button");
-const deleteButton = document.querySelector(".delete-button");
 
 
 
@@ -93,21 +90,24 @@ function addBookToLibrary() {
 
     myLibrary.addBook(newBook);
 
-    console.log(myLibrary.books);
+    
     
 
     closeModal()
 }
 
 function displayBooks() {
+
+    console.log(myLibrary.books);
+
     for (let book in myLibrary.books) {
         createBookCard(myLibrary.books[book]);
-        console.log(myLibrary.books[book]);
+        // console.log(myLibrary.books[book]);
     }
 }
 
 function resetBooks() {
-
+    bookGrid.innerHTML = "";
 }
 
 function createBookCard(book) {
@@ -139,6 +139,9 @@ function createBookCard(book) {
     readButton.classList.add("read-button");
     deleteButton.classList.add("delete-button");
 
+    readButton.addEventListener("click", (e) => toggleRead(e));
+    deleteButton.addEventListener("click", (e) => removeBookFromLibrary(e));
+
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
@@ -150,14 +153,18 @@ function createBookCard(book) {
 }
 
 function toggleRead(e) {
-    const title = e.target.parentNode.parentNode.firstChild.innerHTML;
-    console.log(title);
-
-
+    const title = e.target.parentNode.firstChild.textContent;
+    const book = myLibrary.getBook(title);
+    book.isRead = !book.isRead;
+    resetBooks();
+    displayBooks();
 }
 
-function removeBookFromLibrary() {
-    bookGrid.removeChild()
+function removeBookFromLibrary(e) {
+    const title = e.target.parentNode.firstChild.textContent;
+    myLibrary.removeBook(title);
+    resetBooks();
+    displayBooks();
 }
 
 
@@ -166,8 +173,7 @@ displayBooks();
 addBookButton.addEventListener("click", () => openModal());
 overlay.addEventListener("click", () => closeModal());
 submitButton.addEventListener("submit", () => addBookToLibrary());
-readButton.addEventListener("click", (e) => toggleRead(e));
-deleteButton.addEventListener("click", () => removeBookFromLibrary());
+
 
 
 // LOCAL STORAGE
