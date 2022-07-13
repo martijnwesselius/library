@@ -50,13 +50,19 @@ console.log(myLibrary.books);
 
 // USER INTERFACE
 
-const bookGrid = document.querySelector(".library");
-
-const addBookForm = document.querySelector("#add-book-form");
 const addBookButton = document.querySelector("#add-book-button");
 const overlay = document.querySelector("#overlay");
 const addBookModal = document.querySelector("#add-book-modal");
+const addBookForm = document.querySelector("#add-book-form");
 const submitButton = document.querySelector("#submit-button");
+const bookGrid = document.querySelector(".library");
+
+addBookButton.addEventListener("click", () => openModal());
+overlay.addEventListener("click", () => closeModal());
+submitButton.addEventListener("submit", (e) => addBookToLibrary(e));
+
+updateBooks();
+
 
 
 
@@ -70,39 +76,37 @@ function closeModal() {
     addBookModal.classList.remove('active');
 }
 
-function addBookToLibrary() {
+function addBookToLibrary(e) {
+
+    // Not sure what e.preventDefault does
+    e.preventDefault();
 
     console.log("test")
 
-    const title = document.querySelector("#add-book-form#title").value;
-    const author = document.querySelector("#add-book-form#author").value;
-    const pages = document.querySelector("#add-book-form#pages").value;
-    const isRead =  document.querySelector("#add-book-form#is-read").checked;
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+    const isRead =  document.querySelector("#is-read").checked;
 
-    // console.log(title);
-    // console.log(author);
-    // console.log(pages);
-    // console.log(isRead);
+    console.log(title);
+    console.log(author);
+    console.log(pages);
+    console.log(isRead);
 
     const newBook = new Book(title, author, pages, isRead);
 
     // Error message when book is already in Library
 
     myLibrary.addBook(newBook);
-
     
-    
-
-    closeModal()
+    updateBooks();
+    closeModal();
 }
 
-function displayBooks() {
-
-    console.log(myLibrary.books);
-
+function updateBooks() {
+    resetBooks();
     for (let book in myLibrary.books) {
         createBookCard(myLibrary.books[book]);
-        // console.log(myLibrary.books[book]);
     }
 }
 
@@ -156,24 +160,14 @@ function toggleRead(e) {
     const title = e.target.parentNode.firstChild.textContent;
     const book = myLibrary.getBook(title);
     book.isRead = !book.isRead;
-    resetBooks();
-    displayBooks();
+    updateBooks();
 }
 
 function removeBookFromLibrary(e) {
     const title = e.target.parentNode.firstChild.textContent;
     myLibrary.removeBook(title);
-    resetBooks();
-    displayBooks();
+    updateBooks();
 }
-
-
-displayBooks();
-
-addBookButton.addEventListener("click", () => openModal());
-overlay.addEventListener("click", () => closeModal());
-submitButton.addEventListener("submit", () => addBookToLibrary());
-
 
 
 // LOCAL STORAGE
