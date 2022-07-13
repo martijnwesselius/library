@@ -29,23 +29,18 @@ function Book(title, author, pages, read = false) {
     this.isRead = read;
 }
 
-
-const theHobbit = new Book("The Hobbit", "JRR Tolkien", 400, false);
-const shoeDog = new Book("Shoe Dog", "Phil Knight", 400, true);
-const sapiens = new Book("Sapiens", "Yuval Noah Harari", 512, false);
-const elonMusk = new Book("Elon Musk", "Ashlee Vance", 448, true);
-const randomWalk = new Book("A random walk down Wall Street", "Burton Malkiel", 480, true);
-
 const myLibrary = new Library();
 
-myLibrary.addBook(theHobbit);
-myLibrary.addBook(shoeDog);
-myLibrary.addBook(sapiens);
-myLibrary.addBook(elonMusk);
-myLibrary.addBook(randomWalk);
-
-console.log(myLibrary.books);
-
+// const theHobbit = new Book("The Hobbit", "JRR Tolkien", 400, false);
+// const shoeDog = new Book("Shoe Dog", "Phil Knight", 400, true);
+// const sapiens = new Book("Sapiens", "Yuval Noah Harari", 512, false);
+// const elonMusk = new Book("Elon Musk", "Ashlee Vance", 448, true);
+// const randomWalk = new Book("A random walk down Wall Street", "Burton Malkiel", 480, true);
+// myLibrary.addBook(theHobbit);
+// myLibrary.addBook(shoeDog);
+// myLibrary.addBook(sapiens);
+// myLibrary.addBook(elonMusk);
+// myLibrary.addBook(randomWalk);
 
 
 // USER INTERFACE
@@ -54,19 +49,15 @@ const addBookButton = document.querySelector("#add-book-button");
 const overlay = document.querySelector("#overlay");
 const addBookModal = document.querySelector("#add-book-modal");
 const addBookForm = document.querySelector("#add-book-form");
-const submitButton = document.querySelector("#submit-button");
 const bookGrid = document.querySelector(".library");
 
 addBookButton.addEventListener("click", () => openModal());
 overlay.addEventListener("click", () => closeModal());
-submitButton.addEventListener("submit", (e) => addBookToLibrary(e));
-
-updateBooks();
-
-
+addBookForm.addEventListener("submit", (e) => addBookToLibrary(e)); 
 
 
 function openModal() {
+    addBookForm.reset();
     overlay.classList.add('active');
     addBookModal.classList.add('active');
 }
@@ -77,28 +68,16 @@ function closeModal() {
 }
 
 function addBookToLibrary(e) {
-
-    // Not sure what e.preventDefault does
     e.preventDefault();
-
-    console.log("test")
 
     const title = document.querySelector("#title").value;
     const author = document.querySelector("#author").value;
     const pages = document.querySelector("#pages").value;
     const isRead =  document.querySelector("#is-read").checked;
 
-    console.log(title);
-    console.log(author);
-    console.log(pages);
-    console.log(isRead);
-
     const newBook = new Book(title, author, pages, isRead);
-
-    // Error message when book is already in Library
-
     myLibrary.addBook(newBook);
-    
+    saveLocal();
     updateBooks();
     closeModal();
 }
@@ -160,14 +139,37 @@ function toggleRead(e) {
     const title = e.target.parentNode.firstChild.textContent;
     const book = myLibrary.getBook(title);
     book.isRead = !book.isRead;
+    saveLocal();
     updateBooks();
 }
 
 function removeBookFromLibrary(e) {
     const title = e.target.parentNode.firstChild.textContent;
     myLibrary.removeBook(title);
+    saveLocal();
     updateBooks();
 }
 
 
 // LOCAL STORAGE
+
+function saveLocal() {
+    localStorage.setItem("library", JSON.stringify(myLibrary.books))
+    console.log(myLibrary.books);
+}
+
+function JSONToBook(book) {
+    return new Book(book.title, book.author, book.pages, book.isRead);
+}
+
+function restoreLocal() {
+    const books = JSON.parse(localStorage.getItem("library"));
+    myLibrary.books = books.map((book) => JSONToBook(book)) || []
+    console.log(myLibrary.books);
+}
+
+
+// ON RELOAD
+
+restoreLocal();
+updateBooks();
