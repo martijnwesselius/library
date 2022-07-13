@@ -8,13 +8,6 @@
     --red: #ef4444; /*red 500*/
     --lime: #84cc16; /*lime 500*/
     --overlay-black: rgba(0,0,0,0.7);
-
-
-
-
-    --background-grey: #e5e7eb; /*grey 200*/
-    --text-grey: #374151; /*grey 700*/
-    --shadow: rgba(156, 163, 175, 0.8); /* dark grey 400*/
 }
 
 * {
